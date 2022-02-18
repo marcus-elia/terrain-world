@@ -10,6 +10,7 @@ public class FogController : MonoBehaviour
     public GameObject targetIndicator;
     public GameObject towerCube1;
     public GameObject towerCube2;
+    public PlayerMovement player;
 
     public AudioSource audioSource;
     public AudioClip towerAchieved;
@@ -31,6 +32,7 @@ public class FogController : MonoBehaviour
             towerCube2.GetComponent<TowerCube>().ChangeMaterial();
             audioSource.clip = towerAchieved;
             audioSource.Play();
+            player.IncreaseSprintModifier();
         }    
     }
 }

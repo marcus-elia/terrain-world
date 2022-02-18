@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
 
     private float speed = 6f;
+    private float sprintModifier = 1.5f;
     private float gravity = -9.81f;
     private float jumpHeight = 3f;
 
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift))
         {
-            controller.Move(2 * move * speed * Time.deltaTime);
+            controller.Move(sprintModifier * move * speed * Time.deltaTime);
         }
         else
         {
@@ -65,5 +66,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void IncreaseSprintModifier()
+    {
+        sprintModifier += 0.5f;
     }
 }
