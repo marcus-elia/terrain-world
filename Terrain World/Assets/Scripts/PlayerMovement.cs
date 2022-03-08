@@ -70,6 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void IncreaseSprintModifier()
     {
-        sprintModifier += 0.5f;
+        sprintModifier += 0.75f;
     }
 }

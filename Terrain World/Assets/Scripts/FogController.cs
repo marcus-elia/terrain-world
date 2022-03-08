@@ -15,6 +15,9 @@ public class FogController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip towerAchieved;
 
+    public AmbientAudio ambientSource;
+    private bool musicHasStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,15 +27,26 @@ public class FogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(playerGroundCheck.position, topOfTower.position) < targetRadius)
+        if (musicHasStarted)
         {
-            gameObject.SetActive(false);
-            targetIndicator.SetActive(false);
+            if (!audioSource.isPlaying)
+            {
+                ambientSource.UnMute();
+                musicHasStarted = false;
+
+                gameObject.SetActive(false);
+                targetIndicator.SetActive(false);
+            }
+        }
+        else if (Vector2.Distance(playerGroundCheck.position, topOfTower.position) < targetRadius)
+        {
             towerCube1.GetComponent<TowerCube>().ChangeMaterial();
             towerCube2.GetComponent<TowerCube>().ChangeMaterial();
             audioSource.clip = towerAchieved;
+            ambientSource.Mute();
             audioSource.Play();
+            musicHasStarted = true;
             player.IncreaseSprintModifier();
-        }    
+        }
     }
 }
